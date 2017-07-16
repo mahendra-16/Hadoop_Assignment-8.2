@@ -1,0 +1,32 @@
+sport_concat = load '/pigtest/sports.txt' using PigStorage(',') as (id:int, sport_name:chararray, viewers:double, channel:chararray);
+
+concat_data = FOREACH sport_concat GENERATE CONCAT(name, '-', channel);
+
+sport_tokenize = FOREACH sport_concat GENERATE TOKENZIE(sport_name);
+
+gang = GROUP sport_concat all;
+
+sum_sport = FOREACH gang GENERATE group, SUM(sport_concat.viewers);
+dump sum_sport;
+
+min_sport = FOREACH gang GENERATE group, MIN(sport_concat.viewers);
+
+max_sport = FOREACH gang GENERATE group, MAX(sport_concat.viewers);
+
+limit_sport = LIMIT sport_concat 5;
+
+store limit_sport into '/pigtest/' using PigStorage(',');
+store limit_sport into '/pigtest/assignment-8.2';
+
+distinct_sport = DISTINCT sport_concat;
+
+earth = load '/pigtest/Rare_Earth.txt' using PigStorage(',') as (ele_id:int, elements:chararray, price:int);
+
+co_earth = COGROUP sport_concat BY sport_name inner, Rare_Earth BY element inner;
+
+flat = FOREACH co_earth GENERATE group, FLATTEN(sport_concat);
+
+cog_data = COGROUP sport_concat BY viewers, Rare_Earth BY price;
+
+isempty = FILTER cog_data BY IsEmpty(sport_concat);
+

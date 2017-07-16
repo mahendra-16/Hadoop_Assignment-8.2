@@ -1,0 +1,11 @@
+1, Gold, 1455.56
+2, Silver, 1236.24
+3, Platinum, 1125.66
+4, Copper, 1021.36
+5, Zinc, 555.85
+6, Carbon, 896.45
+7, Diamond, 16675.11
+8, Iron-Ore, 1011.14
+9, Coal, 1257.54
+10, Nickel, 752.48
+ 
